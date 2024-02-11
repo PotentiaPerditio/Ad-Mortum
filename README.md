@@ -1,3 +1,5 @@
+![Mod Icon](./src/main/resources/assets/admortum/icon.png)
+
 Ad Mortum is an addon for requiem which adds unobtainable features such as:
 
 The Shadow remnant type: An overpowered remnant type that can dissociate at will, destroy it's body and create a new one, making it practically immortal. It can also kill any entity just by flying into it while incorporeal.
