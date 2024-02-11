@@ -1,0 +1,10 @@
+{
+  "type": "requiem:soul_type",
+  "value": "admortum:obscurus",
+  "name": "origins:power.requiem.remnant.name",
+  "description": "origins:power.admortum.obscurus.description",
+  "key": {
+    "key": "key.requiem.dissociation",
+    "continuous": false
+  }
+}

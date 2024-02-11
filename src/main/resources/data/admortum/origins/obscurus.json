@@ -1,0 +1,13 @@
+{
+  "powers": [
+    "admortum:obscurus",
+    "requiem:freeform",
+    "requiem:possession",
+    "admortum:conversion"
+  ],
+  "icon": "admortum:soul_vessel",
+  "name": "requiem:remnant_type.admortum.obscurus.name",
+  "description": "origins:origin.admortum.obscurus.description",
+  "order": 1,
+  "impact": 3
+}

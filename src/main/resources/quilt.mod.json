@@ -1,0 +1,41 @@
+{
+	"schema_version": 1,
+	"quilt_loader": {
+		"group": "net.thevoidthaumoturge",
+		"id": "admortum",
+		"version": "${version}",
+		"metadata": {
+			"name": "Ad Mortum",
+			"description": "An addon for Requiem adding unobtainable features that will make you a god.",
+			"contributors": {
+				"Developer": "The Void Thaumoturge"
+			},
+			"icon": "assets/admortum/icon.png"
+		},
+		"intermediate_mappings": "net.fabricmc:intermediary",
+		"entrypoints": {
+			"init": "net.thevoidthaumoturge.admortum.AdMortum",
+			"client_init": "net.thevoidthaumoturge.admortum.AdMortumClient",
+			"requiem:plugin": "net.thevoidthaumoturge.admortum.AdMortumRPlugin"
+		},
+		"depends": [
+			{
+				"id": "quilt_loader",
+				"versions": ">=0.17.0-"
+			},
+			{
+				"id": "quilted_fabric_api",
+				"versions": ">=4.0.0-"
+			},
+			{
+				"id": "minecraft",
+				"versions": ">=1.19.2"
+			},
+			{
+				"id": "requiem",
+				"versions": ">=2.0.0-"
+			}
+		]
+	},
+	"mixin": "admortum.mixins.json"
+}
