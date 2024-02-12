@@ -37,8 +37,13 @@ public class EtherealChainsEffect extends StatusEffect implements StickyStatusEf
 		if (entity instanceof PlayerEntity p) {
 			RemnantComponent r = RemnantComponent.get(p);
 			if (r.getRemnantType() == RemnantTypes.REMNANT) {
-				p.setVelocity(new Vec3d(0, 0 ,0));
+				p.setVelocity(0, 0, 0);
 			}
 		}
+	}
+
+	@Override
+	public boolean canApplyUpdateEffect(int duration, int amplifier) {
+		return true;
 	}
 }

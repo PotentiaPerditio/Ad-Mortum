@@ -3,7 +3,10 @@
 	"minVersion": "0.8",
 	"package": "net.thevoidthaumoturge.admortum.mixin",
 	"compatibilityLevel": "JAVA_17",
-	"mixins": ["DemonSoulVesselMixin"],
+	"mixins": [
+    "DemonSoulVesselMixin",
+    "DemonRemnantTypeMixin"
+    ],
 	"client": [],
     "server": [],
 	"injectors": {

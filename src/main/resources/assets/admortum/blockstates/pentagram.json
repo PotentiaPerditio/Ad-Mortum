@@ -1,10 +1,6 @@
 {
   "variants": {
-    "lit=0": {"model": "admortum:block/pentagram"},
-    "lit=1": {"model": "admortum:block/pentagram_1"},
-    "lit=2": {"model": "admortum:block/pentagram_2"},
-    "lit=3": {"model": "admortum:block/pentagram_3"},
-    "lit=4": {"model": "admortum:block/pentagram_4"},
-    "lit=5": {"model": "admortum:block/pentagram_5"}
+    "lit=false": {"model": "admortum:block/pentagram"},
+    "lit=true": {"model": "admortum:block/pentagram_lit"}
   }
 }

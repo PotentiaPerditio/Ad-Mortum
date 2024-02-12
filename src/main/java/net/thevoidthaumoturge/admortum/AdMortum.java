@@ -5,6 +5,7 @@ import ladysnake.requiem.api.v1.remnant.RemnantComponent;
 import ladysnake.requiem.api.v1.remnant.SoulbindingRegistry;
 import ladysnake.requiem.common.item.DemonSoulVesselItem;
 import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.MapColor;
 import net.minecraft.block.Material;
 import net.minecraft.block.piston.PistonBehavior;
@@ -46,6 +47,7 @@ public class AdMortum implements ModInitializer {
 	public static final StatusEffect ETHEREAL_CHAINS = new EtherealChainsEffect(StatusEffectType.HARMFUL, 0xE000FF);
 	public static final Block PENTAGRAM = new PentagramBlock(QuiltBlockSettings.of(new Material(MapColor.BRIGHT_RED, false, false, false, false, false, false, PistonBehavior.DESTROY)));
 	public static final Item DAGGER = new DaggerItem(new QuiltItemSettings().group(ItemGroup.MISC));
+	public static final Item CRUCIFIX = new CrucifixItem(new QuiltItemSettings().group(ItemGroup.MISC));
 
 	@Override
 	public void onInitialize(ModContainer mod) {
@@ -69,6 +71,7 @@ public class AdMortum implements ModInitializer {
 		});
 		Registry.register(Registry.ITEM, new Identifier(mod.metadata().id(), "soul_vessel"), SOUL_VESSEL);
 		Registry.register(Registry.ITEM, new Identifier(mod.metadata().id(), "dagger"), DAGGER);
+		Registry.register(Registry.ITEM, new Identifier(mod.metadata().id(), "crucifix"), CRUCIFIX);
 		Registry.register(Registry.STATUS_EFFECT, new Identifier(mod.metadata().id(), "ethereal_chains"), ETHEREAL_CHAINS);
 		Registry.register(Registry.BLOCK, new Identifier(mod.metadata().id(), "pentagram"), PENTAGRAM);
 	}
