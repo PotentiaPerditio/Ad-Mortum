@@ -4,6 +4,7 @@ import com.mojang.authlib.GameProfile;
 import ladysnake.requiem.common.block.RequiemBlocks;
 import ladysnake.requiem.common.sound.RequiemSoundEvents;
 import net.minecraft.block.Block;
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.client.sound.Sound;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -20,6 +21,9 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 public class SoulShardItem extends Item {
 	public SoulShardItem(Settings settings) {
@@ -28,6 +32,9 @@ public class SoulShardItem extends Item {
 
 	@Override
 	public ActionResult useOnBlock(ItemUsageContext context) {
+		if (!context.getPlayer().getStackInHand(context.getHand()).getOrCreateNbt().contains("player")) {
+			return ActionResult.FAIL;
+		}
 		Block block = context.getWorld().getBlockState(context.getBlockPos()).getBlock();
 		if (block == RequiemBlocks.CHISELED_TACHYLITE) {
 			if (context.getWorld().isClient()) return ActionResult.SUCCESS;
@@ -51,6 +58,11 @@ public class SoulShardItem extends Item {
 
 	@Override
 	public Text getName(ItemStack stack) {
-		return stack.getOrCreateNbt().contains("playername") ? Text.literal("The soul of " + stack.getNbt().getString("playername")) : super.getName(stack);
+		return stack.getOrCreateNbt().contains("playername") ? Text.literal("The soul of " + stack.getNbt().getString("playername")) : Text.literal("Cheater!");
+	}
+
+	@Override
+	public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
+		if (stack.getOrCreateNbt().contains("cheated") && stack.getNbt().getBoolean("cheated")) tooltip.add(Text.literal("You cheated!"));
 	}
 }

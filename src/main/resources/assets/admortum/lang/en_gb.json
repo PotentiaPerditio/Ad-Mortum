@@ -10,8 +10,9 @@
   "origins:power.admortum.obscurus.description": "Your spirit has split from the atoms of your body due to negative emotions, it will escape before your physical body dies completely.",
   "origins:origin.admortum.obscurus.description": "An Obscurus grows in the absence of joy, hope, love and in the presence of hatred, loneliness, fear and suffering. An Obscurus is a source of infinite, raw energy as the hatred it harbours grows by infinity every day.",
   "orgins:power.admortum.conversion.name": "Conversion",
-  "orgins:power.admortum.conversion.description": "As an Obscurus your immense rage and therefore limitless power you can convert half of your body into antimatter, annihilating it and exposing the chaotic spirit inside, you then store the energy from the blast and can reconstruct the body at will.",
+  "orgins:power.admortum.conversion.description": "As an Obscurus with your immense rage and therefore limitless power you can convert half of your body into antimatter, annihilating it and exposing the chaotic spirit inside, you then store the energy from the blast and can reconstruct the body at will.",
   "death.attack.obscurusKill": "%1$s had it's mind torn apart by the extreme rage of an entity beyond human comprehension.",
   "death.attack.absorbed": "%1$s was absorbed into the fabric of reality.",
-  "item.admortum.crucifix": "Crucifix"
+  "item.admortum.crucifix": "Crucifix",
+  "block.admortum.awakened_tachylite": "Awakened Tachylite"
 }

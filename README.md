@@ -10,8 +10,14 @@ The Obscurus Remnant Type: This one is actually available! You just need to down
 
 The Cloaked Soul Vessel: A soul vessel that makes you a Shadow.
 
-The Dagger: This is still work in progress but using it will(hopefuly) create a pentagram, just be sure to have a full health bar.
+The Dagger: Using it will create a pentagram, just be sure to have a full health bar.
 
-The Pentagram: This is still work in progress but it will(hopefuly) apply the ethereal chains effect to all demons that stand on it.
+The Pentagram(W. I. P): Right-clicking it with a flint and steel will transform it into a raging inferno that will destroy any player that stands in it, this will charge up it's souls which will allow it to slow down any demon that stands on it if it has 10 souls and is in normal mode(right-click it with a water bucket).
 
-The Crucifix: This is still work in progress but it will(hopefuly) ban any demons in a radius of the user off the server.
+The Crucifix: When used, it will ban all demons off the server within a certain radius of the user.
+
+The Soul Command: A command that will give the operator a soul shard of the specified player.
+
+The Soul Shard: A soul of a player that has forfeited their existence by pressing the delete key. Using the shard will unban the player that gave up their existence.
+
+The Awakened Tachylite block: Formed when a soul shard is used on a chiseled tachylite block, it is impossible to break via normal means, but when it is destroyed, something very, very bad will happen. Stepping on it will turn it back into chiseled tachylite and will give the player that stepped on it a crucifix, but at a cost, the player will be gone from the server permanently after they leave.

@@ -1,6 +1,8 @@
 package net.thevoidthaumoturge.admortum;
 
 import com.mojang.brigadier.Command;
+import com.mojang.brigadier.builder.ArgumentBuilder;
+import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import ladysnake.requiem.api.v1.remnant.RemnantComponent;
 import ladysnake.requiem.api.v1.remnant.SoulbindingRegistry;
 import ladysnake.requiem.common.item.DemonSoulVesselItem;
@@ -17,6 +19,7 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
 import net.minecraft.server.BannedPlayerEntry;
+import net.minecraft.server.command.GiveCommand;
 import net.minecraft.server.command.TeleportCommand;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
@@ -30,6 +33,7 @@ import net.scirave.advitam.registry.AdVitamEffects;
 import org.quiltmc.loader.api.ModContainer;
 import org.quiltmc.qsl.base.api.entrypoint.ModInitializer;
 import org.quiltmc.qsl.block.extensions.api.QuiltBlockSettings;
+import org.quiltmc.qsl.command.api.CommandRegistrationCallback;
 import org.quiltmc.qsl.item.setting.api.QuiltItemSettings;
 import org.quiltmc.qsl.networking.api.ServerPlayNetworking;
 import org.slf4j.Logger;
@@ -75,14 +79,20 @@ public class AdMortum implements ModInitializer {
 		});
 		ServerPlayNetworking.registerGlobalReceiver(new Identifier("admortum", "sacrifice"), (server, player, handler, buf, responseSender) -> {
 			server.execute(() -> {
-				ItemStack s = new ItemStack(SOUL_SHARD);
-				s.getOrCreateNbt().putUuid("player", player.getUuid());
-				s.getNbt().putString("playername", player.getName().getString());
-				player.getWorld().spawnEntity(new ItemEntity(player.getWorld(), player.getX(), player.getY(), player.getZ(), s));
-				server.getPlayerManager().getUserBanList().add(new BannedPlayerEntry(player.getGameProfile(), (Date) null, player.getName().getString(), (Date) null, "Sacrificed"));
-				player.networkHandler.disconnect(Text.literal("You have given up your soul"));
+				if (!server.getPlayerManager().getUserBanList().contains(player.getGameProfile())) {
+					ItemStack s = new ItemStack(SOUL_SHARD);
+					s.getOrCreateNbt().putUuid("player", player.getUuid());
+					s.getNbt().putString("playername", player.getName().getString());
+					player.getWorld().spawnEntity(new ItemEntity(player.getWorld(), player.getX(), player.getY(), player.getZ(), s));
+					for (ServerPlayerEntity p : server.getPlayerManager().getPlayerList()) p.sendMessage(Text.literal("Goodbye " + player.getName().getString()), false);
+					server.getPlayerManager().getUserBanList().add(new BannedPlayerEntry(player.getGameProfile(), (Date) null, player.getName().getString(), (Date) null, "Sacrificed"));
+					player.networkHandler.disconnect(Text.literal("You have given up your soul"));
+				} else {
+					player.sendMessage(Text.literal("Your soul is already slipping away, you can't salvage it now."), true);
+				}
 			});
 		});
+		CommandRegistrationCallback.EVENT.register(SoulCommand::register);
 		Registry.register(Registry.ITEM, new Identifier(mod.metadata().id(), "soul_vessel"), SOUL_VESSEL);
 		Registry.register(Registry.ITEM, new Identifier(mod.metadata().id(), "dagger"), DAGGER);
 		Registry.register(Registry.ITEM, new Identifier(mod.metadata().id(), "crucifix"), CRUCIFIX);
