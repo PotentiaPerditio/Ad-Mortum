@@ -4,22 +4,22 @@ import com.mojang.brigadier.Command;
 import ladysnake.requiem.api.v1.remnant.RemnantComponent;
 import ladysnake.requiem.api.v1.remnant.SoulbindingRegistry;
 import ladysnake.requiem.common.item.DemonSoulVesselItem;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.MapColor;
-import net.minecraft.block.Material;
+import net.minecraft.block.*;
 import net.minecraft.block.piston.PistonBehavior;
+import net.minecraft.client.render.entity.PlayerEntityRenderer;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffectType;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
+import net.minecraft.item.*;
+import net.minecraft.server.BannedPlayerEntry;
 import net.minecraft.server.command.TeleportCommand;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
@@ -35,6 +35,7 @@ import org.quiltmc.qsl.networking.api.ServerPlayNetworking;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Date;
 import java.util.List;
 
 public class AdMortum implements ModInitializer {
@@ -48,6 +49,9 @@ public class AdMortum implements ModInitializer {
 	public static final Block PENTAGRAM = new PentagramBlock(QuiltBlockSettings.of(new Material(MapColor.BRIGHT_RED, false, false, false, false, false, false, PistonBehavior.DESTROY)));
 	public static final Item DAGGER = new DaggerItem(new QuiltItemSettings().group(ItemGroup.MISC));
 	public static final Item CRUCIFIX = new CrucifixItem(new QuiltItemSettings().group(ItemGroup.MISC));
+	public static final Item SOUL_SHARD = new SoulShardItem(new QuiltItemSettings().group(ItemGroup.MISC).rarity(Rarity.EPIC));
+	public static final Block AWAKENED_TACHYLITE = new AwakenedTachyliteBlock(QuiltBlockSettings.of(new Material(MapColor.BRIGHT_TEAL, false, true, true, true, false, false, PistonBehavior.BLOCK)).dropsNothing().allowsSpawning((blockState, blockView, blockPos, object) -> false).strength(-1, 3600000).luminance(15));
+	public static final Item AWAKENED_TACHYLITE_ITEM = new BlockItem(AWAKENED_TACHYLITE, new QuiltItemSettings().group(ItemGroup.MISC));
 
 	@Override
 	public void onInitialize(ModContainer mod) {
@@ -69,9 +73,22 @@ public class AdMortum implements ModInitializer {
 				}
 			});
 		});
+		ServerPlayNetworking.registerGlobalReceiver(new Identifier("admortum", "sacrifice"), (server, player, handler, buf, responseSender) -> {
+			server.execute(() -> {
+				ItemStack s = new ItemStack(SOUL_SHARD);
+				s.getOrCreateNbt().putUuid("player", player.getUuid());
+				s.getNbt().putString("playername", player.getName().getString());
+				player.getWorld().spawnEntity(new ItemEntity(player.getWorld(), player.getX(), player.getY(), player.getZ(), s));
+				server.getPlayerManager().getUserBanList().add(new BannedPlayerEntry(player.getGameProfile(), (Date) null, player.getName().getString(), (Date) null, "Sacrificed"));
+				player.networkHandler.disconnect(Text.literal("You have given up your soul"));
+			});
+		});
 		Registry.register(Registry.ITEM, new Identifier(mod.metadata().id(), "soul_vessel"), SOUL_VESSEL);
 		Registry.register(Registry.ITEM, new Identifier(mod.metadata().id(), "dagger"), DAGGER);
 		Registry.register(Registry.ITEM, new Identifier(mod.metadata().id(), "crucifix"), CRUCIFIX);
+		Registry.register(Registry.ITEM, new Identifier(mod.metadata().id(), "soul_shard"), SOUL_SHARD);
+		Registry.register(Registry.ITEM, new Identifier(mod.metadata().id(), "awakened_tachylite"), AWAKENED_TACHYLITE_ITEM);
+		Registry.register(Registry.BLOCK, new Identifier(mod.metadata().id(), "awakened_tachylite"), AWAKENED_TACHYLITE);
 		Registry.register(Registry.STATUS_EFFECT, new Identifier(mod.metadata().id(), "ethereal_chains"), ETHEREAL_CHAINS);
 		Registry.register(Registry.BLOCK, new Identifier(mod.metadata().id(), "pentagram"), PENTAGRAM);
 	}

@@ -12,5 +12,6 @@
   "orgins:power.admortum.conversion.name": "Conversion",
   "orgins:power.admortum.conversion.description": "As an Obscurus your immense rage and therefore limitless power you can convert half of your body into antimatter, annihilating it and exposing the chaotic spirit inside, you then store the energy from the blast and can reconstruct the body at will.",
   "death.attack.obscurusKill": "%1$s had it's mind torn apart by the extreme rage of an entity beyond human comprehension.",
-  "death.attack.absorbed": "%1$s was absorbed into the fabric of reality."
+  "death.attack.absorbed": "%1$s was absorbed into the fabric of reality.",
+  "item.admortum.crucifix": "Crucifix"
 }

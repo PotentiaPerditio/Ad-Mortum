@@ -32,4 +32,9 @@ public class CrucifixItem extends Item {
 		}
 		return super.use(world, user, hand);
 	}
+
+	@Override
+	public boolean hasGlint(ItemStack stack) {
+		return true;
+	}
 }

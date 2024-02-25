@@ -1,0 +1,7 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "admortum:block/awakened_tachylite",
+    "particles": "admortum:block/awakened_tachylite"
+  }
+}
