@@ -19,6 +19,8 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.util.registry.RegistryKey;
+import net.minecraft.world.biome.Biome;
 import net.scirave.advitam.registry.AdVitamEffects;
 import org.quiltmc.loader.api.ModContainer;
 import org.quiltmc.qsl.base.api.entrypoint.ModInitializer;
@@ -46,6 +48,7 @@ public class AdMortum implements ModInitializer {
 	public static final Item SOUL_SHARD = new SoulShardItem(new QuiltItemSettings().group(ItemGroup.MISC).rarity(Rarity.EPIC));
 	public static final Block AWAKENED_TACHYLITE = new AwakenedTachyliteBlock(QuiltBlockSettings.of(new Material(MapColor.BRIGHT_TEAL, false, true, true, true, false, false, PistonBehavior.BLOCK)).dropsNothing().allowsSpawning((blockState, blockView, blockPos, object) -> false).strength(-1, 3600000).luminance(15));
 	public static final Item AWAKENED_TACHYLITE_ITEM = new BlockItem(AWAKENED_TACHYLITE, new QuiltItemSettings().group(ItemGroup.MISC));
+	public static final RegistryKey<Biome> EXILE_BIOME_KEY = RegistryKey.of(Registry.BIOME_KEY, new Identifier("admortum", "exile"));
 
 	@Override
 	public void onInitialize(ModContainer mod) {
