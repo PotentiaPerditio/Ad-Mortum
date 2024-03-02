@@ -10,6 +10,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
+import net.minecraft.server.BannedPlayerEntry;
 import net.minecraft.server.dedicated.command.BanCommand;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
@@ -51,8 +52,9 @@ public class SoulShardItem extends Item {
 
 	@Override
 	public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
-		if (!world.isClient()) world.getServer().getPlayerManager().getUserBanList().remove(world.getServer().getPlayerManager().getPlayer(user.getStackInHand(hand).getNbt().getUuid("player")).getGameProfile());
+		if (!world.isClient()) world.getServer().getPlayerManager().getUserBanList().remove(new GameProfile(user.getStackInHand(hand).getOrCreateNbt().getUuid("player"), user.getStackInHand(hand).getNbt().getString("playername")));
 		if (!user.isCreative()) user.getStackInHand(hand).decrement(1);
+		if (world.isClient()) return TypedActionResult.success(user.getStackInHand(hand));
 		return TypedActionResult.consume(user.getStackInHand(hand));
 	}
 
